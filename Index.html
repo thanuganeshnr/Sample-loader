@@ -5,7 +5,6 @@
     var sessionId = params.get("sessionId");
     function errorCallback(error) {console.log(JSON.stringify(error));}
     function cancelCallback() {console.log('Payment cancelled');}
-    Checkout.showLightbox();
     Checkout.configure({session: {id: sessionId}});
   Checkout.showPaymentPage();
   </script>
