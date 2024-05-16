@@ -1,5 +1,8 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Add this meta tag -->
   <script src="https://test-mib.mtf.gateway.mastercard.com/checkout/version/62/checkout.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
   <script type="text/javascript">
     var params = new URLSearchParams(window.location.search);
@@ -11,8 +14,13 @@
   </script>
   <style>
     .payment-container {
-      width: 600px; /* Adjust width as needed */
-      height: 1000px; /* Adjust height as needed */
+      width: 100%; /* Adjust width as needed */
+      height: 100%; /* Adjust height as needed */
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Hide scrollbars */
     }
   </style>
 </head>
