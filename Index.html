@@ -8,11 +8,8 @@
           data-cancel="cancelCallback"
           data-complete="https://maharajraja.github.io/Sample-loader/completeHandler.html"></script>
   <script type="text/javascript">
-    var params = new URLSearchParams(window.location.search);
-    var sessionId = params.get("sessionId");
-
     function errorCallback(error) {
-     console.log('Payment errorCallback');
+      console.log('Payment errorCallback');
       console.log(JSON.stringify(error));
     }
 
@@ -20,8 +17,21 @@
       console.log('Payment cancelled');
     }
 
+    function completeCallback(resultIndicator, sessionVersion) {
+      console.log('Payment complete');
+      console.log('Result Indicator:', resultIndicator);
+      console.log('Session Version:', sessionVersion);
+      // Redirect to complete handler
+      var redirectUrl = "https://maharajraja.github.io/Sample-loader/completeHandler.html";
+      redirectUrl += `?resultIndicator=${resultIndicator}&sessionVersion=${sessionVersion}`;
+      window.location.href = redirectUrl;
+    }
+
     window.onload = function() {
+      var params = new URLSearchParams(window.location.search);
+      var sessionId = params.get("sessionId");
       if (sessionId) {
+        console.log('Session ID:', sessionId); // Log the session ID
         Checkout.configure({ session: { id: sessionId } });
         Checkout.showLightbox();
       } else {
