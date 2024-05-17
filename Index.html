@@ -2,46 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://test-mib.mtf.gateway.mastercard.com/checkout/version/62/checkout.js"
-          data-complete="completeCallback"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Add this meta tag -->
+  <script src="https://test-mib.mtf.gateway.mastercard.com/checkout/version/62/checkout.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
   <script type="text/javascript">
-    // Function to handle payment completion
-    function completeCallback(resultIndicator, sessionVersion) {
-      console.log('Payment complete');
-      console.log('Result Indicator:', resultIndicator);
-      console.log('Session Version:', sessionVersion);
-      // Redirect to complete handler
-      var redirectUrl = "https://maharajraja.github.io/Sample-loader/completeHandler.html";
-      redirectUrl += `?resultIndicator=${resultIndicator}&sessionVersion=${sessionVersion}`;
-      window.location.href = redirectUrl;
-    }
-
-    // Extract sessionId from URL parameters
     var params = new URLSearchParams(window.location.search);
     var sessionId = params.get("sessionId");
-
-    // Ensure sessionId is not null or undefined
-    if (sessionId) {
-      // Configure the Mastercard Checkout with the session ID
-      Checkout.configure({session: {id: sessionId}});
-      // Show the payment lightbox
-      Checkout.showLightbox();
-    } else {
-      console.error('sessionId not found in URL parameters');
-    }
+    function errorCallback(error) {console.log(JSON.stringify(error));}
+    function cancelCallback() {console.log('Payment cancelled');}
+    Checkout.configure({session: {id: sessionId}});
+    Checkout.showLightbox();
   </script>
   <style>
     .payment-container {
-      width: 100%;
-      height: 100%;
+      width: 100%; /* Adjust width as needed */
+      height: 100%; /* Adjust height as needed */
     }
     body, html {
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      overflow: hidden; /* Hide scrollbars */
     }
   </style>
 </head>
-
+<body>
+<div class="payment-container">
+</div>
+</body>
 </html>
