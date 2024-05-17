@@ -6,17 +6,20 @@
   <script src="https://test-mib.mtf.gateway.mastercard.com/checkout/version/62/checkout.js"
           data-error="errorCallback"
           data-cancel="cancelCallback"
-          data-complete="https://maharajraja.github.io/Sample-loader/completeHandler.html"></script>
+          data-complete="completeCallback"></script>
   <script type="text/javascript">
+    // Function to handle payment errors
     function errorCallback(error) {
       console.log('Payment errorCallback');
       console.log(JSON.stringify(error));
     }
 
+    // Function to handle payment cancellations
     function cancelCallback() {
       console.log('Payment cancelled');
     }
 
+    // Function to handle payment completion
     function completeCallback(resultIndicator, sessionVersion) {
       console.log('Payment complete');
       console.log('Result Indicator:', resultIndicator);
@@ -26,12 +29,20 @@
       redirectUrl += `?resultIndicator=${resultIndicator}&sessionVersion=${sessionVersion}`;
       window.location.href = redirectUrl;
     }
+
+    // Extract sessionId from URL parameters
     var params = new URLSearchParams(window.location.search);
     var sessionId = params.get("sessionId");
-    function errorCallback(error) {console.log(JSON.stringify(error));}
-    function cancelCallback() {console.log('Payment cancelled');}
-    Checkout.configure({session: {id: sessionId}});
-    Checkout.showLightbox();
+
+    // Ensure sessionId is not null or undefined
+    if (sessionId) {
+      // Configure the Mastercard Checkout with the session ID
+      Checkout.configure({session: {id: sessionId}});
+      // Show the payment lightbox
+      Checkout.showLightbox();
+    } else {
+      console.error('sessionId not found in URL parameters');
+    }
   </script>
   <style>
     .payment-container {
