@@ -4,21 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://test-mib.mtf.gateway.mastercard.com/checkout/version/62/checkout.js"
-          data-error="errorCallback"
-          data-cancel="cancelCallback"
           data-complete="completeCallback"></script>
   <script type="text/javascript">
-    // Function to handle payment errors
-    function errorCallback(error) {
-      console.log('Payment errorCallback');
-      console.log(JSON.stringify(error));
-    }
-
-    // Function to handle payment cancellations
-    function cancelCallback() {
-      console.log('Payment cancelled');
-    }
-
     // Function to handle payment completion
     function completeCallback(resultIndicator, sessionVersion) {
       console.log('Payment complete');
